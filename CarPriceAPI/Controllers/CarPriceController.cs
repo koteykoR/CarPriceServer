@@ -1,4 +1,4 @@
-﻿using CarPriceAPI.JsonResults;
+﻿using CarPriceAPI.BadJsonResults;
 using CarPriceAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +13,7 @@ namespace CarPriceAPI.Controllers
         {
             if (carModel is null)
             {
-                
+                return BadJsonResultBuilder.BuildBadJsonResult(1);
             }
         }
     }
