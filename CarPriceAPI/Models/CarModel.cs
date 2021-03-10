@@ -2,7 +2,7 @@
 
 namespace CarPriceAPI.Models
 {
-    internal sealed class CarModel
+    public sealed class CarModel
     {
         public string Company { get; set; }
 

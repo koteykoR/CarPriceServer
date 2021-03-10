@@ -13,8 +13,12 @@ namespace CarPriceAPI.Controllers
         {
             if (carModel is null)
             {
-                return BadJsonResultBuilder.BuildBadJsonResult(1);
+                return BadJsonResultBuilder.BuildBadJsonResult(ErrorId.CarWasNull);
             }
+
+            decimal price = carModel.Mileage + carModel.EnginePower;
+
+            return new(price);
         }
     }
 }

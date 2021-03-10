@@ -5,7 +5,12 @@ using System.Threading.Tasks;
 
 namespace CarPriceAPI.BadJsonResults
 {
-    internal sealed record Error(int Id, string Message);
+    public enum ErrorId
+    {
+        UnknownError = 0,
+        UserNotFound = 1,
+        CarWasNull = 2
+    };
 
     public sealed class BadJsonResultBuilder
     {
@@ -16,12 +21,14 @@ namespace CarPriceAPI.BadJsonResults
             { 2, "Cars was null" }
         };
 
-        public static JsonResult BuildBadJsonResult(int errorId)
+        public static JsonResult BuildBadJsonResult(ErrorId errorId)
         {
-            if (!_errors.TryGetValue(errorId, out var message)) throw new ArgumentException("Does not exist", nameof(errorId));
+            if (!_errors.TryGetValue((int)errorId, out var message)) throw new ArgumentException("Does not exist", nameof(errorId));
 
-            return new BadJsonResult(new Error(errorId, message));
+            return new BadJsonResult(new Error((int)errorId, message));
         }
+
+        record Error(int Id, string Message);
 
         class BadJsonResult : JsonResult
         {
