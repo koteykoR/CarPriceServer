@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarPriceAPI.BadJsonResults
+namespace HistoryAPI.BadJsonResults
 {
     public record Error(int Id, string Message);
 

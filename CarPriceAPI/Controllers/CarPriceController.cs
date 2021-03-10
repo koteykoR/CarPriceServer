@@ -11,10 +11,7 @@ namespace CarPriceAPI.Controllers
         [HttpPost]
         public JsonResult CalculatePrice(CarModel carModel)
         {
-            if (carModel is null)
-            {
-                return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
-            }
+            if (carModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
 
             decimal price = carModel.Mileage + carModel.EnginePower;
 
