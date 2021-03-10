@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Linq.Expressions;
 
 namespace HistoryAPI.Domain.Interfaces
@@ -11,5 +12,7 @@ namespace HistoryAPI.Domain.Interfaces
         IQueryable<T> FindAll();
 
         IQueryable<T> FindWhere(Expression<Func<T, bool>> predicate);
+
+        Task SaveAsync();
     }
 }
