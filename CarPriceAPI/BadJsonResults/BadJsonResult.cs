@@ -5,30 +5,25 @@ using System.Threading.Tasks;
 
 namespace CarPriceAPI.BadJsonResults
 {
-    public enum ErrorId
+    public record Error(int Id, string Message);
+
+    public static class Errors
     {
-        UnknownError = 0,
-        UserNotFound = 1,
-        CarWasNull = 2
-    };
+        public static readonly Error UnknownError = new(0, "Unknown error");
+
+        public static readonly Error UserNotFound = new(1, "User not found");
+
+        public static readonly Error CarWasNull = new(2, "Cars was null");
+    }
 
     public sealed class BadJsonResultBuilder
     {
-        private static readonly Dictionary<int, string> _errors = new()
+        public static JsonResult BuildBadJsonResult(Error error)
         {
-            { 0, "Unknown error" },
-            { 1, "User not found" },
-            { 2, "Cars was null" }
-        };
+            if (error is null) throw new ArgumentNullException(nameof(error));
 
-        public static JsonResult BuildBadJsonResult(ErrorId errorId)
-        {
-            if (!_errors.TryGetValue((int)errorId, out var message)) throw new ArgumentException("Does not exist", nameof(errorId));
-
-            return new BadJsonResult(new Error((int)errorId, message));
+            return new BadJsonResult(error);
         }
-
-        record Error(int Id, string Message);
 
         class BadJsonResult : JsonResult
         {
