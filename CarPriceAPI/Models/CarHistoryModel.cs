@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HistoryAPI.Models
+namespace CarPriceAPI.Models
 {
     public class CarHistoryModel
     {

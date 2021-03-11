@@ -1,11 +1,10 @@
-﻿using HistoryAPI.Domain.Interfaces;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Linq.Expressions;
+using HistoryAPI.Domain.Interfaces;
 using HistoryAPI.Repository.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace HistoryAPI.Repository.Implementations
 {

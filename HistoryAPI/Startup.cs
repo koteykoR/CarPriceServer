@@ -1,7 +1,9 @@
+using HistoryAPI.Repository.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,9 @@ namespace HistoryAPI
         {
 
             services.AddControllers();
+
+            services.AddDbContext<HistoryContext>(o => o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HistoryAPI", Version = "v1" });
