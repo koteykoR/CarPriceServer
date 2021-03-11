@@ -14,10 +14,12 @@ namespace HistoryAPI.Domain.Entities
 
         public string Model { get; set; }
 
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
 
-        public decimal Price { get; set; }
+        public int Price { get; set; }
 
         public int UserId { get; set; }
+
+        public string Action { get; set; }
     }
 }

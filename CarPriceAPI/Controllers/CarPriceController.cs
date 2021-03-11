@@ -13,26 +13,21 @@ namespace CarPriceAPI.Controllers
     {
         private readonly IHistoryService _historyService;
 
-        public CarPriceController(IHistoryService historyService)
+        private readonly IParserService _parserService;
+
+        public CarPriceController(IHistoryService historyService, IParserService parserService)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
+
+            _parserService = parserService ?? throw new ArgumentNullException(nameof(parserService));
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetSomething()
+        public async Task<JsonResult> GetSomethingTest()
         {
-            var carHistory = new CarHistoryModel
-            {
-                Company = "max",
-                Model = "max",
-                Year = DateTime.Now,
-                Price = 1000,
-                UserId = 1
-            };
+            var cars = await _parserService.GetCars(new() { Company = "lifan", Model = "x50" });
 
-            await _historyService.AddCarHistoryDbAsync(carHistory);
-
-            return new("hello");
+            return new(cars);
         }
 
         [HttpPost]

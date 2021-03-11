@@ -4,11 +4,7 @@ using HistoryAPI.Domain.Interfaces;
 using HistoryAPI.Models;
 using HistoryAPI.Repository.Contexts;
 using HistoryAPI.Repository.Implementations;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HistoryAPI.Controllers

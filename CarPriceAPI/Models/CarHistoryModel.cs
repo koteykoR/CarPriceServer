@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace CarPriceAPI.Models
 {
     public class CarHistoryModel
@@ -8,10 +7,12 @@ namespace CarPriceAPI.Models
 
         public string Model { get; set; }
 
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
 
-        public decimal Price { get; set; }
+        public int Price { get; set; }
 
         public int UserId { get; set; }
+
+        public string Action { get; } = "Calculated car price";
     }
 }

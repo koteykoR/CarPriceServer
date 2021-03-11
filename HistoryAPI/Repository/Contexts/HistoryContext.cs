@@ -9,6 +9,7 @@ namespace HistoryAPI.Repository.Contexts
 
         public HistoryContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -21,6 +22,7 @@ namespace HistoryAPI.Repository.Contexts
             modelBuilder.Entity<CarHistory>().Property(c => c.Year);
             modelBuilder.Entity<CarHistory>().Property(c => c.Price);
             modelBuilder.Entity<CarHistory>().Property(c => c.UserId);
+            modelBuilder.Entity<CarHistory>().Property(c => c.Action);
         }
     }
 }

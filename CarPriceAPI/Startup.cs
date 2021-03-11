@@ -29,9 +29,11 @@ namespace CarPriceAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient<IHistoryService, HistoryService>(c => c.BaseAddress = new(Configuration["ApiSettings:HistoryUrl"]));
-                    //.AddPolicyHandler(GetRetryPolicy());
-                    //.AddPolicyHandler(GetCircuitBreakerPolicy());
+            services.AddHttpClient<IHistoryService, HistoryService>(c => c.BaseAddress = new(Configuration["ApiSettings:HistoryUrl"]))
+                    .AddPolicyHandler(GetRetryPolicy())
+                    .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddHttpClient<IParserService, ParserService>(c => c.BaseAddress = new(Configuration["ApiSettings:ParserUrl"]));
 
             services.AddControllers();
 

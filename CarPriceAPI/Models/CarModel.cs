@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace CarPriceAPI.Models
 {
     public sealed class CarModel
@@ -14,10 +13,10 @@ namespace CarPriceAPI.Models
 
         public double EngineVolume { get; set; }
 
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
 
         public bool Transmission { get; set; }
 
-        public decimal Price { get; set; }
+        public int Price { get; set; }
     }
 }

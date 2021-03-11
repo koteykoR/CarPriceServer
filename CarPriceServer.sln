@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.218
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{2778E20E-E763-4A7A-AE69-68767452F875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "OcelotApiGateway\OcelotApiGateway.csproj", "{2778E20E-E763-4A7A-AE69-68767452F875}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A9D29461-309F-4B22-BF59-8FFBF4B72F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPriceAPI", "CarPriceAPI\CarPriceAPI.csproj", "{14CC24E1-604A-466D-B41F-2122C8DB1D0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarPriceAPI", "CarPriceAPI\CarPriceAPI.csproj", "{14CC24E1-604A-466D-B41F-2122C8DB1D0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoryAPI", "HistoryAPI\HistoryAPI.csproj", "{157451D9-9BE8-475B-845D-A8BDA056B8E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HistoryAPI", "HistoryAPI\HistoryAPI.csproj", "{157451D9-9BE8-475B-845D-A8BDA056B8E0}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ParserAPI", "ParserAPI\ParserAPI.fsproj", "{0FD37362-BC62-40E2-8DD9-68305DF61E8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{157451D9-9BE8-475B-845D-A8BDA056B8E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{157451D9-9BE8-475B-845D-A8BDA056B8E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{157451D9-9BE8-475B-845D-A8BDA056B8E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FD37362-BC62-40E2-8DD9-68305DF61E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD37362-BC62-40E2-8DD9-68305DF61E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD37362-BC62-40E2-8DD9-68305DF61E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD37362-BC62-40E2-8DD9-68305DF61E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{14CC24E1-604A-466D-B41F-2122C8DB1D0A} = {A9D29461-309F-4B22-BF59-8FFBF4B72F21}
 		{157451D9-9BE8-475B-845D-A8BDA056B8E0} = {A9D29461-309F-4B22-BF59-8FFBF4B72F21}
+		{0FD37362-BC62-40E2-8DD9-68305DF61E8C} = {A9D29461-309F-4B22-BF59-8FFBF4B72F21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51847794-7CC2-4A7E-B65B-27A6E33E0F8C}

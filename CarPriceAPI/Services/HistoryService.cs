@@ -14,18 +14,11 @@ namespace CarPriceAPI.Services
         public HistoryService(HttpClient client)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new("application/json"));
         }
 
         public async Task AddCarHistoryDbAsync(CarHistoryModel carHistoryModel)
         {
-            //var response = _client.PostAsJsonAsync("api/history", carHistoryModel);
-
-
-            var response = await _client.PostAsync("api/history", JsonContent.Create(carHistoryModel));
-
-            var a = 2;
+            await _client.PostAsJsonAsync("api/history", carHistoryModel);
         }
     }
 }
