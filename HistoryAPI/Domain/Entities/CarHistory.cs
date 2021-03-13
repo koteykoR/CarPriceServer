@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HistoryAPI.Domain.Entities
@@ -18,7 +17,7 @@ namespace HistoryAPI.Domain.Entities
 
         public int Price { get; set; }
 
-        public int UserId { get; set; }
+        public string UserLogin { get; set; }
 
         public string Action { get; set; }
     }

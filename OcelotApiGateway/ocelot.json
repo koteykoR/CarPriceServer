@@ -25,7 +25,39 @@
         }
       ],
       "UpstreamPathTemplate": "/history",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      }
+    },
+
+    //IdentityAPI IdentityController
+    {
+      "DownstreamPathTemplate": "/api/identity",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/identity",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    //IdentityAPI SingUpController
+    {
+      "DownstreamPathTemplate": "/api/signup",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/signup",
+      "UpstreamHttpMethod": [ "POST" ]
     }
   ],
   "GlobalConfiguration": {

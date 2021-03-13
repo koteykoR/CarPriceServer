@@ -4,6 +4,7 @@ using HistoryAPI.Domain.Interfaces;
 using HistoryAPI.Models;
 using HistoryAPI.Repository.Contexts;
 using HistoryAPI.Repository.Implementations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -21,8 +22,23 @@ namespace HistoryAPI.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetCarsHistory()
+        [Authorize]
+        public async Task<JsonResult> GetCarsHistory()
         {
+            var userLogin = HttpContext.User.Identity.Name;
+
+            var history = new CarHistory
+            {
+                Company = "Lifan",
+                Model = "x50",
+                Price = 12213123,
+                UserLogin = userLogin
+            };
+
+            _repository.Add(history);
+
+            await _repository.SaveAsync();
+
             return new(_repository.FindAll());
         }
 
@@ -37,7 +53,7 @@ namespace HistoryAPI.Controllers
                 Model = carHistoryModel.Model,
                 Year = carHistoryModel.Year,
                 Price = carHistoryModel.Price,
-                UserId = carHistoryModel.UserId
+                UserLogin = carHistoryModel.UserLogin,
             };
 
             _repository.Add(car);

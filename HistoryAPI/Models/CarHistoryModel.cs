@@ -11,7 +11,7 @@ namespace HistoryAPI.Models
 
         public int Price { get; set; }
 
-        public int UserId { get; set; }
+        public string UserLogin { get; set; }
 
         public string Action { get; set; }
     }
