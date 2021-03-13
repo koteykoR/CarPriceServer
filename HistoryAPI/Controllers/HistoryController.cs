@@ -23,23 +23,13 @@ namespace HistoryAPI.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<JsonResult> GetCarsHistory()
+        public JsonResult GetHistory()
         {
             var userLogin = HttpContext.User.Identity.Name;
 
-            var history = new CarHistory
-            {
-                Company = "Lifan",
-                Model = "x50",
-                Price = 12213123,
-                UserLogin = userLogin
-            };
+            var histories = _repository.FindWhere(u => u.UserLogin == userLogin);
 
-            _repository.Add(history);
-
-            await _repository.SaveAsync();
-
-            return new(_repository.FindAll());
+            return new(histories);
         }
 
         [HttpPost]
@@ -60,7 +50,7 @@ namespace HistoryAPI.Controllers
 
             await _repository.SaveAsync();
 
-            return new("Ok");
+            return new("Car was added to db");
         }
     }
 }

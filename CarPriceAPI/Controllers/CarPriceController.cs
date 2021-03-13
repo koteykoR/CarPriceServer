@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CarPriceAPI.BadJsonResults;
 using CarPriceAPI.Models;
 using CarPriceAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarPriceAPI.Controllers
@@ -22,22 +24,30 @@ namespace CarPriceAPI.Controllers
             _parserService = parserService ?? throw new ArgumentNullException(nameof(parserService));
         }
 
-        [HttpGet]
-        public async Task<JsonResult> GetSomethingTest()
-        {
-            var cars = await _parserService.GetCars(new() { Company = "lifan", Model = "x50" });
-
-            return new(cars);
-        }
-
         [HttpPost]
-        public JsonResult CalculatePrice(CarModel carModel)
+        [Authorize]
+        public async Task<JsonResult> CalculatePrice(CarModel carModel)
         {
             if (carModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
 
-            decimal price = carModel.Mileage + carModel.EnginePower;
+            var userLogin = HttpContext.User.Identity.Name;
 
-            return new(price);
+            var cars = await _parserService.GetCars(carModel);
+
+            var price = cars.Aggregate(-1000, (x, y) => x + y.Price); // тут питон
+
+            var historyModel = new CarHistoryModel
+            {
+                Company = carModel.Company,
+                Model = carModel.Model,
+                Year = carModel.Year,
+                Price = price,
+                UserLogin = userLogin
+            };
+
+            await _historyService.AddCarHistoryDbAsync(historyModel);
+
+            return new(historyModel);
         }
     }
 }
