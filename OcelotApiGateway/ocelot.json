@@ -1,7 +1,7 @@
 {
-  "ReRoutes": [
+  "Routes": [
+    //CarPriceAPI
     {
-      //CarPriceAPI
       "DownstreamPathTemplate": "/api/carprice",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -12,18 +12,23 @@
       ],
       "UpstreamPathTemplate": "/carprice",
       "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+
+    //HistoryAPI
+    {
+      "DownstreamPathTemplate": "/api/history",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7002
+        }
+      ],
+      "UpstreamPathTemplate": "/history",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7000"
-  },
-
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft": "Warning",
-      "Microsoft.Hosting.Lifetime": "Information"
-    }
-  },
-  "AllowedHosts": "*"
+  }
 }

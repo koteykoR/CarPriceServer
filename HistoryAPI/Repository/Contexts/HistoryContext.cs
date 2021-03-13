@@ -9,7 +9,6 @@ namespace HistoryAPI.Repository.Contexts
 
         public HistoryContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

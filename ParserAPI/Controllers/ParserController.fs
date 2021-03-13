@@ -9,6 +9,9 @@ open ParserAPI.Parsers
 type ParserController() = 
     inherit ControllerBase()
     
+    [<HttpGet>]
+    member _.Get() = JsonResult("Hi, How Are You")
+
     [<HttpPost>]
     member _.Post(car: CarModel) : JsonResult = 
         let cars = AutoParser.Parse car.Company car.Model
