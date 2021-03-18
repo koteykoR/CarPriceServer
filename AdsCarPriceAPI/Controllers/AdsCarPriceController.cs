@@ -1,22 +1,29 @@
-﻿using System;
-using System.Threading.Tasks;
-using CarPriceAPI.BadJsonResults;
-using CarPriceAPI.Models;
-using CarPriceAPI.Services;
+﻿using AdsCarPriceAPI.BadJsonResults;
+using AdsCarPriceAPI.Models;
+using AdsCarPriceAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CarPriceAPI.Controllers
+namespace AdsCarPriceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarPriceController : ControllerBase
+    public class AdsCarPriceController : ControllerBase
     {
         private readonly IHistoryService _historyService;
 
-        public CarPriceController(IHistoryService historyService)
+        private readonly IParserService _parserService;
+
+        public AdsCarPriceController(IHistoryService historyService, IParserService parserService)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
+
+            _parserService = parserService ?? throw new ArgumentNullException(nameof(parserService));
         }
 
         [HttpPost]
@@ -27,14 +34,18 @@ namespace CarPriceAPI.Controllers
 
             var userLogin = HttpContext.User.Identity.Name;
 
+            var cars = await _parserService.GetCars(carModel);
+
+            var price = cars.Aggregate(-1000, (x, y) => x + y.Price); // тут питон
+
             var historyModel = new CarHistoryModel
             {
                 Company = carModel.Company,
                 Model = carModel.Model,
                 Year = carModel.Year,
-                Price = carModel.Mileage + carModel.EnginePower,
+                Price = price,
                 UserLogin = userLogin,
-                Action = "Calcualte car price on base data its car"
+                Action = "Calcualte car price base on other casrs"
             };
 
             await _historyService.AddCarHistoryDbAsync(historyModel);

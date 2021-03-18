@@ -44,6 +44,7 @@ namespace HistoryAPI.Controllers
                 Year = carHistoryModel.Year,
                 Price = carHistoryModel.Price,
                 UserLogin = carHistoryModel.UserLogin,
+                Action = carHistoryModel.Action
             };
 
             _repository.Add(car);

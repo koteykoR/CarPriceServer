@@ -1,10 +1,10 @@
-﻿using CarPriceAPI.Models;
+﻿using AdsCarPriceAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarPriceAPI.Services
+namespace AdsCarPriceAPI.Services
 {
     public interface IParserService
     {
