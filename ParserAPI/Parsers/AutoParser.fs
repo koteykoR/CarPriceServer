@@ -17,12 +17,20 @@ module AutoParser =
     let private priceClass = "ListingItemPrice-module__content"
     let private mileageClass = "ListingItem-module__kmAge"
     let private transmissionPowerVolumeClass = "ListingItemTechSummaryDesktop__cell"
+    let private linkClass = "Link ListingItemTitle-module__link"
 
     let private defaultParse(node: HtmlNode) className = 
         node.Descendants()
         |> Seq.filter (fun x -> x.HasClass(className))
         |> Seq.tryHead
         |> Option.map (fun x -> x.InnerText())
+
+    let private parseLink(node: HtmlNode) className = 
+        node.Descendants() 
+        |> Seq.filter (fun x -> x.HasClass(className))
+        |> Seq.choose(fun x -> x.TryGetAttribute("href"))
+        |> Seq.tryHead
+        |> Option.map (fun x -> x.Value())
 
     let private parseTransmissionPowerVolume(node: HtmlNode) = 
         node.Descendants()
@@ -59,15 +67,16 @@ module AutoParser =
         let year = parseInt (defaultParse node yearClass)
         let price = parseInt (defaultParse node priceClass)
         let mileage = parseMileage (defaultParse node mileageClass)
+        let link = parseLink node linkClass
         let power, volume, transmission = 
             match (parseTransmissionPowerVolume node) with
             | Some (x, y) -> parsePower x, parseVolume x, Some (parseTransmission y)
             | None -> None, None, None
 
-        match (year, price, mileage, transmission, power, volume) with 
-        | (Some y, Some pr, Some m, Some t, Some po, Some v) -> Some {Company = company; Model = model; Mileage = m; 
-                                                                      EnginePower = po; EngineVolume = v; Year = y; 
-                                                                      Transmission = t; Price = pr}
+        match (year, price, mileage, transmission, power, volume, link) with 
+        | (Some y, Some pr, Some m, Some t, Some po, Some v, Some l) -> Some {Company = company; Model = model; Mileage = m; 
+                                                                              EnginePower = po; EngineVolume = v; Year = y; 
+                                                                              Transmission = t; Price = pr; Link = l}
         | _ -> None
 
     let private parseCarDoc company model (doc: HtmlDocument) = 

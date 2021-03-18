@@ -1,23 +1,25 @@
-﻿using System;
+﻿using BestDealsCarPriceAPI.BadJsonResults;
+using BestDealsCarPriceAPI.Models;
+using BestDealsCarPriceAPI.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarPriceAPI.BadJsonResults;
-using CarPriceAPI.Models;
-using CarPriceAPI.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
-namespace CarPriceAPI.Controllers
+namespace BestDealsCarPriceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarPriceController : ControllerBase
+    public class BestDealsCarPriceController : ControllerBase
     {
         private readonly IHistoryService _historyService;
 
         private readonly IParserService _parserService;
 
-        public CarPriceController(IHistoryService historyService, IParserService parserService)
+        public BestDealsCarPriceController(IHistoryService historyService, IParserService parserService)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
 
@@ -34,21 +36,21 @@ namespace CarPriceAPI.Controllers
 
             var cars = await _parserService.GetCars(carModel);
 
-            var price = cars.Aggregate(-1000, (x, y) => x + y.Price); // тут питон
+            var bestCars = cars.OrderBy(c => c.Price).ToArray()[0..100]; // тут питон
 
             var historyModel = new CarHistoryModel
             {
                 Company = carModel.Company,
                 Model = carModel.Model,
                 Year = carModel.Year,
-                Price = price,
+                Price = carModel.Price,
                 UserLogin = userLogin,
-                Action = "Calcualte car price base on other casrs"
+                Action = "Get 100 best deals"
             };
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(historyModel);
+            return new(cars);
         }
     }
 }

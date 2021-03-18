@@ -1,5 +1,5 @@
 ﻿
-namespace CarPriceAPI.Models
+namespace BestDealsCarPriceAPI.Models
 {
     public class CarHistoryModel
     {

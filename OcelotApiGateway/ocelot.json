@@ -29,7 +29,7 @@
         }
       ],
       "UpstreamPathTemplate": "/history",
-      "UpstreamHttpMethod": [ "GET" ,"POST" ],
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "TestKey",
         "AllowedScopes": []
@@ -62,6 +62,24 @@
       ],
       "UpstreamPathTemplate": "/signup",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    //BestDealsCarPriceAPI
+    {
+      "DownstreamPathTemplate": "/api/bestdealscarprice",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7005
+        }
+      ],
+      "UpstreamPathTemplate": "/bestdealscarprice",
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {

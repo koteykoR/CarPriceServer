@@ -9,4 +9,5 @@ module Models =
                      EngineVolume: double; 
                      Year: int; 
                      Transmission: bool; 
-                     Price: int}
+                     Price: int;
+                     Link: string}
