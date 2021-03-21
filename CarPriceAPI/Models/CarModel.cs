@@ -17,6 +17,8 @@ namespace CarPriceAPI.Models
 
         public bool Transmission { get; set; }
 
+        public string Link { get; set; }
+
         public int Price { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CarPriceAPI.BadJsonResults;
 using CarPriceAPI.Models;
@@ -13,10 +14,13 @@ namespace CarPriceAPI.Controllers
     public class CarPriceController : ControllerBase
     {
         private readonly IHistoryService _historyService;
+        private readonly IParserServcie _parserService;
 
-        public CarPriceController(IHistoryService historyService)
+        public CarPriceController(IHistoryService historyService, IParserServcie parserServcie)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
+
+            _parserService = parserServcie ?? throw new ArgumentNullException(nameof(parserServcie));
         }
 
         [HttpPost]
@@ -27,19 +31,23 @@ namespace CarPriceAPI.Controllers
 
             var userLogin = HttpContext.User.Identity.Name;
 
+            var cars = await _parserService.GetCars(carModel);
+
+            var price = cars.Aggregate(-1000, (x, y) => x + y.Price);
+
             var historyModel = new CarHistoryModel
             {
                 Company = carModel.Company,
                 Model = carModel.Model,
                 Year = carModel.Year,
-                Price = carModel.Mileage + carModel.EnginePower,
+                Price = price,
                 UserLogin = userLogin,
                 Action = "Calcualte car price on base data its car"
             };
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(historyModel);
+            return new(price);
         }
     }
 }
