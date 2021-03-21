@@ -1,8 +1,6 @@
-using Polly;
 using System;
 using System.Text;
 using CarPriceAPI.Services;
-using Polly.Extensions.Http;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Builder;
@@ -51,8 +49,11 @@ namespace CarPriceAPI
                 x.TokenValidationParameters = tokenValidationParameters;
             });
 
-            services.AddHttpClient<IHistoryService, HistoryService>(c => c.BaseAddress = new(Configuration["ApiSettings:HistoryUrl"]));
-            services.AddHttpClient<IParserServcie, ParserService>(c => c.BaseAddress = new(Configuration["ApiSettings:ParserUrl"]));
+            services.AddHttpClient<IHistoryService, HistoryService>
+                (c => c.BaseAddress = new(Configuration["ApiSettings:HistoryUrl"]));
+
+            services.AddHttpClient<IParserService, ParserService>
+                (c => c.BaseAddress = new(Configuration["ApiSettings:ParserUrl"]));
 
             services.AddControllers();
 
@@ -84,23 +85,5 @@ namespace CarPriceAPI
                 endpoints.MapControllers();
             });
         }
-
-        //private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
-        //{
-        //    return HttpPolicyExtensions.HandleTransientHttpError()
-        //                               .WaitAndRetryAsync(
-        //                                    retryCount: 5, 
-        //                                    sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
-        //                                    );
-        //}
-
-        //private static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
-        //{
-        //    return HttpPolicyExtensions.HandleTransientHttpError()
-        //                               .CircuitBreakerAsync(
-        //                                    handledEventsAllowedBeforeBreaking: 5,
-        //                                    durationOfBreak: TimeSpan.FromSeconds(30)
-        //                                    );
-        //}
     }
 }

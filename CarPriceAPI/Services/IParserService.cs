@@ -1,12 +1,10 @@
 ﻿using CarPriceAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CarPriceAPI.Services
 {
-    public interface IParserServcie
+    public interface IParserService
     {
         public Task<IEnumerable<CarModel>> GetCars(CarModel carModel);
     }

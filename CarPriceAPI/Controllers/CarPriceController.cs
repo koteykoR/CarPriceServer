@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using CarPriceAPI.BadJsonResults;
 using CarPriceAPI.Models;
 using CarPriceAPI.Services;
-using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using CarPriceAPI.BadJsonResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarPriceAPI.Controllers
 {
@@ -14,9 +14,9 @@ namespace CarPriceAPI.Controllers
     public class CarPriceController : ControllerBase
     {
         private readonly IHistoryService _historyService;
-        private readonly IParserServcie _parserService;
+        private readonly IParserService _parserService;
 
-        public CarPriceController(IHistoryService historyService, IParserServcie parserServcie)
+        public CarPriceController(IHistoryService historyService, IParserService parserServcie)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
 

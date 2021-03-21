@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using HistoryAPI.Domain.Interfaces;
-using HistoryAPI.Repository.Contexts;
 using Microsoft.EntityFrameworkCore;
+using HistoryAPI.Repository.Contexts;
 
 namespace HistoryAPI.Repository.Implementations
 {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BestDealsCarPriceAPI.Models
+﻿
+namespace CarBestDealsAPI.Models
 {
     public class CarModel
     {
@@ -21,8 +17,8 @@ namespace BestDealsCarPriceAPI.Models
 
         public bool Transmission { get; set; }
 
-        public int Price { get; set; }
-
         public string Link { get; set; }
+
+        public int Price { get; set; }
     }
 }

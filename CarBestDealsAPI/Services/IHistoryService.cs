@@ -1,10 +1,7 @@
-﻿using AdsCarPriceAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CarBestDealsAPI.Models;
 using System.Threading.Tasks;
 
-namespace AdsCarPriceAPI.Services
+namespace CarBestDealsAPI.Services
 {
     public interface IHistoryService
     {

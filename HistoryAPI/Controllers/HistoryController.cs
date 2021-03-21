@@ -1,12 +1,12 @@
-﻿using HistoryAPI.BadJsonResults;
+﻿using HistoryAPI.Models;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using HistoryAPI.BadJsonResults;
 using HistoryAPI.Domain.Entities;
 using HistoryAPI.Domain.Interfaces;
-using HistoryAPI.Models;
 using HistoryAPI.Repository.Contexts;
-using HistoryAPI.Repository.Implementations;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using HistoryAPI.Repository.Implementations;
 
 namespace HistoryAPI.Controllers
 {

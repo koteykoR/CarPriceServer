@@ -64,9 +64,9 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
 
-    //BestDealsCarPriceAPI
+    //CarBestDealsAPI
     {
-      "DownstreamPathTemplate": "/api/bestdealscarprice",
+      "DownstreamPathTemplate": "/api/carbestdeals",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -74,25 +74,7 @@
           "Port": 7005
         }
       ],
-      "UpstreamPathTemplate": "/bestdealscarprice",
-      "UpstreamHttpMethod": [ "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "TestKey",
-        "AllowedScopes": []
-      }
-    },
-
-    //AdsCarPriceAPI
-    {
-      "DownstreamPathTemplate": "/api/adscarprice",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7006
-        }
-      ],
-      "UpstreamPathTemplate": "/adscarprice",
+      "UpstreamPathTemplate": "/carbestdeals",
       "UpstreamHttpMethod": [ "POST" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "TestKey",

@@ -1,11 +1,10 @@
-﻿using AdsCarPriceAPI.Models;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
+using CarBestDealsAPI.Models;
 using System.Threading.Tasks;
 
-namespace AdsCarPriceAPI.Services
+namespace CarBestDealsAPI.Services
 {
     public class HistoryService : IHistoryService
     {

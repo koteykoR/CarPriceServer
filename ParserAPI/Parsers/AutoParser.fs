@@ -6,7 +6,6 @@ open FSharp.Data
 open FSharp.Collections.ParallelSeq
 open System.Collections.Concurrent
 open System.Threading.Tasks
-open System.Text.Json
 
 module AutoParser =
     [<Literal>]

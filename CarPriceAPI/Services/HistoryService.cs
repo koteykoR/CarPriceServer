@@ -1,7 +1,6 @@
-﻿using CarPriceAPI.Models;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Net.Http;
+using CarPriceAPI.Models;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 

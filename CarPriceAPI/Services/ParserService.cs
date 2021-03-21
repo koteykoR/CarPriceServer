@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CarPriceAPI.Services
 {
-    public class ParserService : IParserServcie
+    public class ParserService : IParserService
     {
         private readonly HttpClient _client;
 

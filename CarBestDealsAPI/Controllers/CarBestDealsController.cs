@@ -1,25 +1,24 @@
-﻿using BestDealsCarPriceAPI.BadJsonResults;
-using BestDealsCarPriceAPI.Models;
-using BestDealsCarPriceAPI.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using CarBestDealsAPI.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using CarBestDealsAPI.Services;
+using Microsoft.AspNetCore.Http;
+using CarBestDealsAPI.BadJsonResults;
+using Microsoft.AspNetCore.Authorization;
 
-namespace BestDealsCarPriceAPI.Controllers
+namespace CarBestDealsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BestDealsCarPriceController : ControllerBase
+    public class CarBestDealsController : ControllerBase
     {
         private readonly IHistoryService _historyService;
 
         private readonly IParserService _parserService;
 
-        public BestDealsCarPriceController(IHistoryService historyService, IParserService parserService)
+        public CarBestDealsController(IHistoryService historyService, IParserService parserService)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
 
