@@ -3,7 +3,7 @@
     //CarPriceAPI
     {
       "DownstreamPathTemplate": "/api/carprice",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -21,7 +21,7 @@
     //HistoryAPI
     {
       "DownstreamPathTemplate": "/api/history",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -39,7 +39,7 @@
     //IdentityAPI IdentityController
     {
       "DownstreamPathTemplate": "/api/identity",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -47,13 +47,13 @@
         }
       ],
       "UpstreamPathTemplate": "/identity",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "POST" ]
     },
 
     //IdentityAPI SingUpController
     {
       "DownstreamPathTemplate": "/api/signup",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -67,7 +67,7 @@
     //CarBestDealsAPI
     {
       "DownstreamPathTemplate": "/api/carbestdeals",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
@@ -83,6 +83,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7000"
+    "BaseUrl": "http://localhost:7000"
   }
 }

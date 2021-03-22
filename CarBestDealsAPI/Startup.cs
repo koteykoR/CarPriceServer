@@ -35,7 +35,7 @@ namespace CarBestDealsAPI
                 ValidateAudience = true,
                 ValidAudience = audienceConfig["Aud"],
                 ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero,
+                ClockSkew = TimeSpan.FromDays(1),
                 RequireExpirationTime = true,
             };
 

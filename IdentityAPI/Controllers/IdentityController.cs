@@ -31,7 +31,7 @@ namespace IdentityAPI.Controllers
             _options = options;
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult Token(UserModel user)
         {
             var identity = GetIdentity(user);

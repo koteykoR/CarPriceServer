@@ -36,7 +36,7 @@ namespace OcelotApiGateway
                 ValidateAudience = true,
                 ValidAudience = audienceConfig["Aud"],
                 ValidateLifetime = true,
-                ClockSkew = TimeSpan.FromMinutes(10),
+                ClockSkew = TimeSpan.FromDays(1),
                 RequireExpirationTime = true,
             };
 
