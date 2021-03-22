@@ -7,6 +7,7 @@ using HistoryAPI.Domain.Interfaces;
 using HistoryAPI.Repository.Contexts;
 using Microsoft.AspNetCore.Authorization;
 using HistoryAPI.Repository.Implementations;
+using System.Linq;
 
 namespace HistoryAPI.Controllers
 {
@@ -27,7 +28,8 @@ namespace HistoryAPI.Controllers
         {
             var userLogin = HttpContext.User.Identity.Name;
 
-            var histories = _repository.FindWhere(u => u.UserLogin == userLogin);
+            var histories = _repository.FindWhere(u => u.UserLogin == userLogin)
+                                       .ToArray();
 
             return new(histories);
         }

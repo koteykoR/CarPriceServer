@@ -49,7 +49,7 @@ namespace CarBestDealsAPI.Controllers
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(cars);
+            return new(cars.ToArray());
         }
     }
 }
