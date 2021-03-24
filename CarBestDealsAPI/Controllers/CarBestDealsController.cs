@@ -27,7 +27,7 @@ namespace CarBestDealsAPI.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<JsonResult> CalculatePrice(CarModel carModel)
+        public async Task<JsonResult> GetCarBestDeals(CarModel carModel)
         {
             if (carModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
 
@@ -35,7 +35,7 @@ namespace CarBestDealsAPI.Controllers
 
             var cars = await _parserService.GetCars(carModel);
 
-            var bestCars = cars.OrderBy(c => c.Price).ToArray()[0..100]; // тут питон
+            //var bestCars = cars.OrderBy(c => c.Price).ToArray()[0..100]; // тут питон
 
             var historyModel = new CarHistoryModel
             {

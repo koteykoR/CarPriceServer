@@ -31,7 +31,7 @@ namespace CarPriceAPI.Controllers
 
             var userLogin = HttpContext.User.Identity.Name;
 
-            var cars = await _parserService.GetCars(carModel);
+            var cars = await _parserService.GetCars(carModel);          
 
             var price = cars.Aggregate(-1000, (x, y) => x + y.Price);
 

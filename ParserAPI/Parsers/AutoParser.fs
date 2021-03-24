@@ -91,25 +91,35 @@ module AutoParser =
         match maybeCountPage with
         | Some count -> TryParseIntOption count
         | None -> None
-        
+    
+    let loadDocument (url: string) = 
+        try 
+            let watch = System.Diagnostics.Stopwatch.StartNew()
+            let doc = HtmlDocument.Load(url)
+            watch.Stop()
+            printfn "%f" watch.Elapsed.TotalSeconds
+            Some doc 
+        with _ -> printfn "%s" url 
+                  None
+
+    let test (url: string) = 
+        let watch = System.Diagnostics.Stopwatch.StartNew()
+        let doc = HtmlDocument.Load(url)
+        watch.Stop()
+        printfn "%f" watch.Elapsed.TotalSeconds
+        doc 
+
     let Parse company model = 
         let url = $"https://auto.ru/cars/{company}/{model}/all/"
         let doc = HtmlDocument.Load(url)
         let count = getCountPage doc
-        //printfn "%A" count
+        printfn "%A" count
         let pages = match count with
                     | Some count -> seq {for i in 2 .. count -> url + $"?page={i}"}
                     | None -> Seq.empty
-        
-        let htmlDocuments = new ConcurrentQueue<HtmlDocument>()
-        htmlDocuments.Enqueue(doc)
-
-        let _ = Parallel.ForEach(pages, (fun x -> 
-                                         try let mutable doc = HtmlDocument.Load(uri = x)
-                                             htmlDocuments.Enqueue(doc)
-                                         with _ -> printf "%s" x))
-        
-        htmlDocuments
+              
+        pages
+        |> PSeq.map test
         |> PSeq.collect (fun x -> parseCarDoc company model x)
-        |> Seq.filter (fun x -> x.IsSome)
-        |> Seq.map (fun x -> x.Value)
+        |> PSeq.filter (fun x -> x.IsSome)
+        |> PSeq.map (fun x -> x.Value)
