@@ -1,5 +1,4 @@
-﻿using IdentityAPI.BadJsonResults;
-using IdentityAPI.Domain.Entities;
+﻿using IdentityAPI.Domain.Entities;
 using IdentityAPI.Domain.Interfaces;
 using IdentityAPI.Models;
 using IdentityAPI.Repository.Contexts;
@@ -7,6 +6,7 @@ using IdentityAPI.Repository.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using MiddlewareLibrary;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -36,7 +36,7 @@ namespace IdentityAPI.Controllers
         {
             var identity = GetIdentity(user);
 
-            if (identity is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.UserNotFound);
+            if (identity is null) return new(new Either<string, Error>(null, Errors.UserNotFound));
 
             var signInKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_options.Value.Secret));
 
@@ -51,7 +51,7 @@ namespace IdentityAPI.Controllers
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new(encodedJwt);
+            return new(new Either<string, Error>(encodedJwt, null));
         }
 
         private ClaimsIdentity GetIdentity(UserModel userModel)

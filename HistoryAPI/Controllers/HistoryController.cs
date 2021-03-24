@@ -1,13 +1,13 @@
 ﻿using HistoryAPI.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using HistoryAPI.BadJsonResults;
 using HistoryAPI.Domain.Entities;
 using HistoryAPI.Domain.Interfaces;
 using HistoryAPI.Repository.Contexts;
 using Microsoft.AspNetCore.Authorization;
 using HistoryAPI.Repository.Implementations;
 using System.Linq;
+using MiddlewareLibrary;
 
 namespace HistoryAPI.Controllers
 {
@@ -31,13 +31,13 @@ namespace HistoryAPI.Controllers
             var histories = _repository.FindWhere(u => u.UserLogin == userLogin)
                                        .ToArray();
 
-            return new(histories);
+            return new(new Either<CarHistory[], Error>(histories, null));
         }
 
         [HttpPost]
         public async Task<JsonResult> AddCarDb(CarHistoryModel carHistoryModel)
         {
-            if (carHistoryModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
+            if (carHistoryModel is null) return new(new Either<bool, Error>(false, Errors.CarWasNull));
 
             var car = new CarHistory()
             {
@@ -53,7 +53,7 @@ namespace HistoryAPI.Controllers
 
             await _repository.SaveAsync();
 
-            return new("Car was added to db");
+            return new(new Either<bool, Error>(true, null));
         }
     }
 }

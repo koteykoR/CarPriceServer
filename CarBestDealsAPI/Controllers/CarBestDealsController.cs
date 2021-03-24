@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CarBestDealsAPI.Services;
 using Microsoft.AspNetCore.Http;
-using CarBestDealsAPI.BadJsonResults;
 using Microsoft.AspNetCore.Authorization;
+using MiddlewareLibrary;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace CarBestDealsAPI.Controllers
 {
@@ -29,7 +31,7 @@ namespace CarBestDealsAPI.Controllers
         [Authorize]
         public async Task<JsonResult> GetCarBestDeals(CarModel carModel)
         {
-            if (carModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
+            if (carModel is null) return new(new Either<CarModel[], Error>(null, Errors.CarWasNull));
 
             var userLogin = HttpContext.User.Identity.Name;
 
@@ -49,7 +51,7 @@ namespace CarBestDealsAPI.Controllers
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(cars.ToArray());
+            return new(new Either<CarModel[], Error>(cars.ToArray(), null));
         }
     }
 }

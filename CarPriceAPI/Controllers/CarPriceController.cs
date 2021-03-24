@@ -4,8 +4,8 @@ using CarPriceAPI.Models;
 using CarPriceAPI.Services;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CarPriceAPI.BadJsonResults;
 using Microsoft.AspNetCore.Authorization;
+using MiddlewareLibrary;
 
 namespace CarPriceAPI.Controllers
 {
@@ -27,7 +27,7 @@ namespace CarPriceAPI.Controllers
         [Authorize]
         public async Task<JsonResult> CalculatePrice(CarModel carModel)
         {
-            if (carModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.CarWasNull);
+            if (carModel is null) return new(new Either<int, Error>(0, Errors.CarWasNull));
 
             var userLogin = HttpContext.User.Identity.Name;
 
@@ -47,7 +47,7 @@ namespace CarPriceAPI.Controllers
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(price);
+            return new(new Either<int, Error>(price, null));
         }
     }
 }

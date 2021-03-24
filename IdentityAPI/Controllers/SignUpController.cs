@@ -1,10 +1,10 @@
-﻿using IdentityAPI.BadJsonResults;
-using IdentityAPI.Domain.Entities;
+﻿using IdentityAPI.Domain.Entities;
 using IdentityAPI.Domain.Interfaces;
 using IdentityAPI.Models;
 using IdentityAPI.Repository.Contexts;
 using IdentityAPI.Repository.Implementations;
 using Microsoft.AspNetCore.Mvc;
+using MiddlewareLibrary;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,13 +24,13 @@ namespace IdentityAPI.Controllers
         [HttpPost]
         public async Task<JsonResult> SignUp(UserModel userModel)
         {
-            if (userModel is null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.UserWasNull);
+            if (userModel is null) return new(new Either<bool, Error>(false, Errors.UserWasNull));
 
             var users = _repository.FindAll();
 
             var existUser = users.Where(u => u.Login == userModel.Login).FirstOrDefault();
 
-            if (existUser is not null) return BadJsonResultBuilder.BuildBadJsonResult(Errors.UserAlreadyInDb);
+            if (existUser is not null) return new(new Either<bool, Error>(false, Errors.UserAlreadyInDb));
 
             var user = new User
             {
@@ -42,7 +42,7 @@ namespace IdentityAPI.Controllers
 
             await _repository.SaveAsync();
 
-            return new("User was signed up");
+            return new(new Either<bool, Error>(true, null));
         }
     }
 }
