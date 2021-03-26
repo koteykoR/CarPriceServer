@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace CarPriceAPI
 {
@@ -54,6 +55,12 @@ namespace CarPriceAPI
 
             services.AddHttpClient<IParserService, ParserService>
                 (c => c.BaseAddress = new(Configuration["ApiSettings:ParserUrl"]));
+
+            var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MappingProfile()));
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             services.AddControllers();
 

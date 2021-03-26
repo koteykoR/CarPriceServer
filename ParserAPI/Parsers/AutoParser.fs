@@ -102,13 +102,6 @@ module AutoParser =
         with _ -> printfn "%s" url 
                   None
 
-    let test (url: string) = 
-        let watch = System.Diagnostics.Stopwatch.StartNew()
-        let doc = HtmlDocument.Load(url)
-        watch.Stop()
-        printfn "%f" watch.Elapsed.TotalSeconds
-        doc 
-
     let Parse company model = 
         let url = $"https://auto.ru/cars/{company}/{model}/all/"
         let doc = HtmlDocument.Load(url)
@@ -119,7 +112,9 @@ module AutoParser =
                     | None -> Seq.empty
               
         pages
-        |> PSeq.map test
+        |> PSeq.map loadDocument
+        |> PSeq.filter (fun x -> x.IsSome)
+        |> PSeq.map (fun x -> x.Value)
         |> PSeq.collect (fun x -> parseCarDoc company model x)
         |> PSeq.filter (fun x -> x.IsSome)
         |> PSeq.map (fun x -> x.Value)

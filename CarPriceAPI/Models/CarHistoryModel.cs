@@ -13,6 +13,6 @@ namespace CarPriceAPI.Models
 
         public string UserLogin { get; set; }
 
-        public string Action { get; set; }
+        public string Action { get => "Calcualte car price on base ads cars"; } 
     }
 }

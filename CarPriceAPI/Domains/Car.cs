@@ -1,7 +1,7 @@
 ﻿
-namespace CarPriceAPI.Models
+namespace CarPriceAPI.Domains
 {
-    public sealed class CarModel
+    public class Car
     {
         public string Company { get; set; }
 
@@ -16,5 +16,9 @@ namespace CarPriceAPI.Models
         public int Year { get; set; }
 
         public bool Transmission { get; set; }
+
+        public string Link { get; set; }
+
+        public int Price { get; set; }
     }
 }

@@ -37,7 +37,14 @@ namespace CarBestDealsAPI.Controllers
 
             var cars = await _parserService.GetCars(carModel);
 
-            //var bestCars = cars.OrderBy(c => c.Price).ToArray()[0..100]; // тут питон
+            var carsBestDealDataModel = cars.Select(c => new CarBestDealDataModel
+            {
+                Company = c.Company,
+                Model = c.Model,
+                Year = c.Year,
+                Price = c.Price,
+                Link = c.Link
+            });
 
             var historyModel = new CarHistoryModel
             {
@@ -51,7 +58,7 @@ namespace CarBestDealsAPI.Controllers
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
-            return new(new Either<CarModel[], Error>(cars.ToArray(), null));
+            return new(new Either<CarBestDealDataModel[], Error>(carsBestDealDataModel.ToArray(), null));
         }
     }
 }
