@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using HistoryAPI.Repository.Implementations;
 using System.Linq;
 using MiddlewareLibrary;
+using AutoMapper;
 
 namespace HistoryAPI.Controllers
 {
@@ -17,9 +18,13 @@ namespace HistoryAPI.Controllers
     {
         private readonly IRepository<CarHistory> _repository;
 
-        public HistoryController(HistoryContext historyContext)
+        private readonly IMapper _mapper;
+
+        public HistoryController(HistoryContext historyContext, IMapper mapper)
         {
             _repository = new DBRepository<CarHistory>(historyContext);
+
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,10 +33,11 @@ namespace HistoryAPI.Controllers
         {
             var userLogin = HttpContext.User.Identity.Name;
 
-            var histories = _repository.FindWhere(u => u.UserLogin == userLogin)
-                                       .ToArray();
+            var carHistoriesModel = _repository.FindWhere(c => c.UserLogin == userLogin)
+                                               .Select(c => _mapper.Map<CarHistoryModel>(c))
+                                               .ToArray();
 
-            return new(new Either<CarHistory[], Error>(histories, null));
+            return new(new Either<CarHistoryModel[], Error>(carHistoriesModel, null));
         }
 
         [HttpPost]
@@ -39,15 +45,7 @@ namespace HistoryAPI.Controllers
         {
             if (carHistoryModel is null) return new(new Either<bool, Error>(false, Errors.CarWasNull));
 
-            var car = new CarHistory()
-            {
-                Company = carHistoryModel.Company,
-                Model = carHistoryModel.Model,
-                Year = carHistoryModel.Year,
-                Price = carHistoryModel.Price,
-                UserLogin = carHistoryModel.UserLogin,
-                Action = carHistoryModel.Action
-            };
+            var car = _mapper.Map<CarHistory>(carHistoryModel);
 
             _repository.Add(car);
 

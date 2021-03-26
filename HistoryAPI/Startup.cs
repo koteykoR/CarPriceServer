@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using HistoryAPI.Repository.Contexts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace HistoryAPI
 {
@@ -49,6 +50,12 @@ namespace HistoryAPI
                 x.RequireHttpsMetadata = false;
                 x.TokenValidationParameters = tokenValidationParameters;
             });
+
+            var mapperConfig = new MapperConfiguration(m => m.AddProfile(new MappingProfile()));
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             services.AddControllers();
 
