@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CarBestDealsAPI.Models;
 using System.Collections.Generic;
+using CarBestDealsAPI.Domains;
 
 namespace CarBestDealsAPI.Services
 {
@@ -16,15 +17,15 @@ namespace CarBestDealsAPI.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public async Task<IEnumerable<CarModel>> GetCars(CarModel carModel)
+        public async Task<IEnumerable<Car>> GetCars(Car car)
         {
-            IEnumerable<CarModel> cars = null;
+            IEnumerable<Car> cars = null;
 
-            var response = await _client.PostAsJsonAsync("api/parser", carModel);
+            var response = await _client.PostAsJsonAsync("api/parser", car);
 
             if(response.IsSuccessStatusCode)
             {
-                cars = await response.Content.ReadFromJsonAsync<IEnumerable<CarModel>>();
+                cars = await response.Content.ReadFromJsonAsync<IEnumerable<Car>>();
             }
 
             return cars;

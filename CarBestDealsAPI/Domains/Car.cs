@@ -1,7 +1,7 @@
 ﻿
-namespace CarBestDealsAPI.Models
+namespace CarBestDealsAPI.Domains
 {
-    public class CarModel
+    public class Car
     {
         public string Company { get; set; }
 

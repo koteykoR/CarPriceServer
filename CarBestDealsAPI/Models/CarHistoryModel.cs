@@ -13,6 +13,6 @@ namespace CarBestDealsAPI.Models
 
         public string UserLogin { get; set; }
 
-        public string Action { get; set; }
+        public string Action { get => "Get 100 best deals"; }
     }
 }

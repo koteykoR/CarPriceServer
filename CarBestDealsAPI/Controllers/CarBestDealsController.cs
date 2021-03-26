@@ -7,8 +7,8 @@ using CarBestDealsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using MiddlewareLibrary;
-using System.Collections;
-using System.Collections.Generic;
+using CarBestDealsAPI.Domains;
+using AutoMapper;
 
 namespace CarBestDealsAPI.Controllers
 {
@@ -20,41 +20,33 @@ namespace CarBestDealsAPI.Controllers
 
         private readonly IParserService _parserService;
 
-        public CarBestDealsController(IHistoryService historyService, IParserService parserService)
+        private readonly IMapper _mapper;
+
+        public CarBestDealsController(IHistoryService historyService, IParserService parserService, IMapper mapper)
         {
             _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
 
             _parserService = parserService ?? throw new ArgumentNullException(nameof(parserService));
+
+            _mapper = mapper;
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<JsonResult> GetCarBestDeals(CarModel carModel)
+        public async Task<JsonResult> GetCarBestDeals(CarBestDealFormModel carModel)
         {
-            if (carModel is null) return new(new Either<CarModel[], Error>(null, Errors.CarWasNull));
+            if (carModel is null) return new(new Either<Car[], Error>(null, Errors.CarWasNull));
 
             var userLogin = HttpContext.User.Identity.Name;
 
-            var cars = await _parserService.GetCars(carModel);
+            var car = _mapper.Map<Car>(carModel);
 
-            var carsBestDealDataModel = cars.Select(c => new CarBestDealDataModel
-            {
-                Company = c.Company,
-                Model = c.Model,
-                Year = c.Year,
-                Price = c.Price,
-                Link = c.Link
-            });
+            var cars = await _parserService.GetCars(car);
 
-            var historyModel = new CarHistoryModel
-            {
-                Company = carModel.Company,
-                Model = carModel.Model,
-                Year = carModel.Year,
-                Price = carModel.Price,
-                UserLogin = userLogin,
-                Action = "Get 100 best deals"
-            };
+            var carsBestDealDataModel = cars.Select(c => _mapper.Map<CarBestDealDataModel>(c));
+
+            var historyModel = _mapper.Map<CarHistoryModel>(car);
+            historyModel.UserLogin = userLogin;
 
             await _historyService.AddCarHistoryDbAsync(historyModel);
 
