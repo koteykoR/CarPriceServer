@@ -16,4 +16,10 @@
     <ProjectReference Include="..\MiddlewareLibrary\MiddlewareLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="CarPricePredictor">
+      <HintPath>CarPricePredictor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
